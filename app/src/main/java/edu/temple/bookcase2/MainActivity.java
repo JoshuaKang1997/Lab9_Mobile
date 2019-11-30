@@ -14,6 +14,7 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,7 +90,15 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
                     ex.printStackTrace();
                 }
             }
-        }
+        }Handler getAudioProgress = new Handler(msg -> {
+            AudiobookService.BookProgress obj = (AudiobookService.BookProgress) msg.obj;
+            SeekBar seekBar = findViewById(R.id.seekBar);
+            if (obj != null) {
+                seekBar.setProgress(obj.getProgress());
+                currentProgress = obj.getProgress();
+            }
+            return false;
+        });
 
         @Override
         public void onBookSelected(int position) {
