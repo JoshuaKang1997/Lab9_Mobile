@@ -109,7 +109,13 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
             }
             getSupportFragmentManager()
         }
-
+        protected void onStop() {
+            super.onStop();
+            if (mServiceBound){
+                unbindService(mServiceConnection);
+                mServiceBound = false;
+            }
+        }
     @Override
     public void onInputListSent(String book) {
             bdf.updateTextView(book);
