@@ -121,3 +121,6 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
             bdf.updateTextView(book);
     }
 }
+
+public void playBOok(book)
+}
