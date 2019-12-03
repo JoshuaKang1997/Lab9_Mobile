@@ -49,4 +49,8 @@ public class EditorFragment extends Fragment {
         textView.setText(array[position]);
         return(result);
     }
+    public interface BookPagerInterface {
+        // TODO: Update argument type and name
+        void onPageSelect(int position);
+    }
 }
