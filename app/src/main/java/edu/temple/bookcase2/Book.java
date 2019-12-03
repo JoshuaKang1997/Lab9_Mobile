@@ -10,6 +10,7 @@ public class Book {
     private String author;
     private int year;
     private String coverURL;
+    private int duration;
 
     public Book(int id, String title, String author, int year, String coverURL, Context context){
         this.context = context;
@@ -18,5 +19,13 @@ public class Book {
         this.author = author;
         this.year = year;
         this.coverURL = coverURL;
+    }
+    //setter for book
+    public Book(Book book){
+        this.id = book.id;
+        this.author = book.author;
+        this.year = book.year;
+        this.coverURL = book.coverURL;
+        this.duration = book.duration;
     }
 }

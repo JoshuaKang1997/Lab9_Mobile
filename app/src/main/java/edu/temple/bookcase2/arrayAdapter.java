@@ -42,4 +42,10 @@ public class arrayAdapter extends BaseAdapter {
         }
 
         TextView titleTextView = view.findViewById(R.id.titleView);
-}
+
+        public interface ArrayAdapterInterface{
+            void playBook(Book theBook);
+        }
+
+    }
+
