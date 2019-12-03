@@ -4,12 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.ComponentName;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import java.io.InputStreamReader;
 
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +52,14 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
             }
             initializeBook(JSONbook);
         }
+
+        protected void onStop() {
+            super.onStop();
+            if (mServiceBound){
+                unbindService(mServiceConnection);
+                mServiceBound = false;
+            }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -90,7 +101,9 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
                     ex.printStackTrace();
                 }
             }
-        }Handler getAudioProgress = new Handler(msg -> {
+        }
+
+        Handler getAudioProgress = new Handler(msg -> {
             AudiobookService.BookProgress obj = (AudiobookService.BookProgress) msg.obj;
             SeekBar seekBar = findViewById(R.id.seekBar);
             if (obj != null) {
@@ -99,6 +112,18 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
             }
             return false;
         });
+
+        private ServiceConnection ServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName componentName) {
+
+            }
+        }
 
         @Override
         public void onBookSelected(int position) {
@@ -109,12 +134,7 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
             }
             getSupportFragmentManager()
         }
-        protected void onStop() {
-            super.onStop();
-            if (mServiceBound){
-                unbindService(mServiceConnection);
-                mServiceBound = false;
-            }
+
         }
     @Override
     public void onInputListSent(String book) {
@@ -122,5 +142,12 @@ public class MainActivity extends AppCompatActivity implements bookListFragment.
     }
 }
 
-public void playBOok(book)
+public void playAudio(Book book){
+        currentBook = book;
+        if(ServiceBound){
+            binder.play(currentBook.id);
+        }
+        TextView textStatus = findViewById(R.id.textStatus);
+
+    }
 }

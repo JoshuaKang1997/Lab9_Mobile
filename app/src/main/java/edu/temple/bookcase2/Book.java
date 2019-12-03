@@ -2,7 +2,7 @@ package edu.temple.bookcase2;
 
 import android.content.Context;
 
-public class Book {
+public class Book implements Serializable {
 
     Context context;
     private int id;
